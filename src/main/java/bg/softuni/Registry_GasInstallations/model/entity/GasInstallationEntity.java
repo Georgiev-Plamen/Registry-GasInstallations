@@ -1,13 +1,16 @@
 package bg.softuni.Registry_GasInstallations.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Table
-public class GasInstallationEntity extends BaseEntity {
+public class GasInstallationEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String damtnNumber;
     private LocalDate damtnDate;
@@ -18,6 +21,14 @@ public class GasInstallationEntity extends BaseEntity {
     private String pressure;
     private String power;
     private Long ownerId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getDamtnNumber() {
         return damtnNumber;

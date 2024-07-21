@@ -3,6 +3,8 @@ package bg.softuni.Registry_GasInstallations.model.dto;
 import java.time.LocalDate;
 
 public record GasInstallationDTO(
+
+        Long id,
         String damtnNumber,
         LocalDate damtnDate,
         LocalDate registrationData,

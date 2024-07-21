@@ -37,6 +37,14 @@ public class GasInstallationController {
         ).body(gasInstallationDTO);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<GasInstallationDTO> editGasInstallation (@PathVariable("id") Long id,
+            @RequestBody GasInstallationDTO gasInstallationDTO) {
+        gasInstallationService.editGasInstallation(id, gasInstallationDTO);
+
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping
     public ResponseEntity<List<GasInstallationDTO>>  getAllGasInstallation() {
         return ResponseEntity.ok(gasInstallationService.getAllGasInstallation());

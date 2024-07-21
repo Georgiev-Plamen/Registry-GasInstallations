@@ -13,4 +13,6 @@ public interface GasInstallationService {
     void deleteById(Long id);
 
     GasInstallationDTO getGasInstallationById (Long id);
+
+    void editGasInstallation(Long id, GasInstallationDTO gasInstallationDTO);
 }

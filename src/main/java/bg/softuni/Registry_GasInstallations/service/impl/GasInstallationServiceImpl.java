@@ -5,7 +5,7 @@ import bg.softuni.Registry_GasInstallations.model.dto.GasInstallationDTO;
 import bg.softuni.Registry_GasInstallations.model.entity.GasInstallationEntity;
 import bg.softuni.Registry_GasInstallations.repository.GasInstallationRepository;
 import bg.softuni.Registry_GasInstallations.service.GasInstallationService;
-import org.hibernate.ObjectNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +14,12 @@ import java.util.List;
 @Service
 public class GasInstallationServiceImpl implements GasInstallationService {
     private final GasInstallationRepository gasInstallationRepository;
+    private final ModelMapper modelMapper;
 
 
-    public GasInstallationServiceImpl(GasInstallationRepository gasInstallationRepository) {
+    public GasInstallationServiceImpl(GasInstallationRepository gasInstallationRepository, ModelMapper modelMapper) {
         this.gasInstallationRepository = gasInstallationRepository;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -50,6 +52,15 @@ public class GasInstallationServiceImpl implements GasInstallationService {
 
     }
 
+    @Override
+    public void editGasInstallation(Long id, GasInstallationDTO gasInstallationDTO) {
+//        GasInstallationEntity gasInstallationEntity = gasInstallationRepository.findById(id).get();
+        GasInstallationEntity gasInstallationEntity = modelMapper.map(gasInstallationDTO, GasInstallationEntity.class);
+//        gasInstallationEntity = modelMapper.map(gasInstallationDTO, GasInstallationEntity.class);
+
+        gasInstallationRepository.save(gasInstallationEntity);
+    }
+
     private static GasInstallationDTO map(GasInstallationEntity gasInstallationEntity) {
         return new GasInstallationDTO(
                 gasInstallationEntity.getId(),
@@ -68,13 +79,13 @@ public class GasInstallationServiceImpl implements GasInstallationService {
     private static GasInstallationEntity map(AddGasInstallationDTO addGasInstallationDTO) {
         return new GasInstallationEntity()
                 .setDamtnNumber(addGasInstallationDTO.damtnNumber())
-//                .setDamtnDate(addGasInstallationDTO.damtnDate())
-//                .setRegistrationData(addGasInstallationDTO.registrationData())
-//                .setType(addGasInstallationDTO.type())
-                .setManufacturer(addGasInstallationDTO.manufacturer());
-//                .setModel(addGasInstallationDTO.model())
-//                .setPressure(addGasInstallationDTO.pressure())
-//                .setPower(addGasInstallationDTO.power())
-//                .setOwnerId(addGasInstallationDTO.ownerId());
+                .setDamtnDate(addGasInstallationDTO.damtnDate())
+                .setRegistrationData(addGasInstallationDTO.registrationData())
+                .setType(addGasInstallationDTO.type())
+                .setManufacturer(addGasInstallationDTO.manufacturer())
+                .setModel(addGasInstallationDTO.model())
+                .setPressure(addGasInstallationDTO.pressure())
+                .setPower(addGasInstallationDTO.power())
+                .setOwnerId(addGasInstallationDTO.ownerId());
     }
 }

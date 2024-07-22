@@ -54,9 +54,20 @@ public class GasInstallationServiceImpl implements GasInstallationService {
 
     @Override
     public void editGasInstallation(Long id, GasInstallationDTO gasInstallationDTO) {
-//        GasInstallationEntity gasInstallationEntity = gasInstallationRepository.findById(id).get();
-        GasInstallationEntity gasInstallationEntity = modelMapper.map(gasInstallationDTO, GasInstallationEntity.class);
-//        gasInstallationEntity = modelMapper.map(gasInstallationDTO, GasInstallationEntity.class);
+
+//        GasInstallationEntity gasInstallationEntity = modelMapper.map(gasInstallationDTO, GasInstallationEntity.class);
+        GasInstallationEntity gasInstallationEntity = gasInstallationRepository
+                .findById(id)
+                .get()
+                .setDamtnNumber(gasInstallationDTO.damtnNumber())
+                .setDamtnDate(gasInstallationDTO.damtnDate())
+                .setRegistrationData(gasInstallationDTO.registrationData())
+                .setType(gasInstallationDTO.type())
+                .setManufacturer(gasInstallationDTO.manufacturer())
+                .setModel(gasInstallationDTO.model())
+                .setPressure(gasInstallationDTO.pressure())
+                .setPower(gasInstallationDTO.power())
+                .setOwnerId(gasInstallationDTO.ownerId());
 
         gasInstallationRepository.save(gasInstallationEntity);
     }

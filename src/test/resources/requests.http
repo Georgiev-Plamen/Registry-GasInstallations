@@ -1,0 +1,14 @@
+POST http://localhost:8081/gas
+Content-Type: application/json
+
+{
+  "damtnNumber": "1234444",
+  "damtnDate": "2024-05-01",
+  "registrationData": "2024-06-05",
+  "type": "ГИ на ПГ",
+  "manufacturer": "ЕМЕРТ",
+  "model": "EFT704L",
+  "pressure": "2",
+  "power": "2",
+  "ownerId": 1
+}

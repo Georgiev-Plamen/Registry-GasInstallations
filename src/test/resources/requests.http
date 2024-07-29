@@ -5,10 +5,9 @@ Content-Type: application/json
   "damtnNumber": "1234444",
   "damtnDate": "2024-05-01",
   "registrationData": "2024-06-05",
-  "type": "ГИ на ПГ",
-  "manufacturer": "ЕМЕРТ",
+  "type": "asd",
+  "manufacturer": "asd",
   "model": "EFT704L",
   "pressure": "2",
-  "power": "2",
-  "ownerId": 1
+  "power": "2"
 }

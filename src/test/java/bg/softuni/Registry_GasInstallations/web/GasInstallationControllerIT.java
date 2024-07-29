@@ -66,8 +66,7 @@ public class GasInstallationControllerIT {
                 .andExpect(jsonPath("$.manufacturer", is(actualEntity.getManufacturer())))
                 .andExpect(jsonPath("$.model", is(actualEntity.getModel())))
                 .andExpect(jsonPath("$.pressure", is(actualEntity.getPressure())))
-                .andExpect(jsonPath("$.power", is(actualEntity.getPower())))
-                .andExpect(jsonPath("$.ownerId", is(actualEntity.getOwnerId())));
+                .andExpect(jsonPath("$.power", is(actualEntity.getPower())));
     }
 
     @Test
@@ -87,12 +86,11 @@ public class GasInstallationControllerIT {
                    "damtnNumber": "1234444",
                    "damtnDate": "2024-05-01",
                    "registrationData": "2024-06-05",
-                   "type": "ГИ на ПГ",
-                   "manufacturer": "ЕМЕРТ",
+                   "type": "asd",
+                   "manufacturer": "asd",
                    "model": "EFT704L",
                    "pressure": "2",
-                   "power": "2",
-                   "ownerId": 1
+                   "power": "2"
                   }
                 """)
                 ).andExpect(status().isCreated())
@@ -101,9 +99,9 @@ public class GasInstallationControllerIT {
 
         String body = result.getResponse().getContentAsString();
 
-        long id = JsonPath.read(body, "$.id");
+        int id = JsonPath.read(body, "$.id");
 
-        Optional<GasInstallationEntity> createdGasOpt = gasInstallationRepository.findById(id);
+        Optional<GasInstallationEntity> createdGasOpt = gasInstallationRepository.findById((long)id);
 
         Assertions.assertTrue(createdGasOpt.isPresent());
 
@@ -112,13 +110,11 @@ public class GasInstallationControllerIT {
         Assertions.assertEquals("1234444", createdGas.getDamtnNumber());
         Assertions.assertEquals("2024-05-01", createdGas.getDamtnDate().toString());
         Assertions.assertEquals(LocalDate.parse("2024-06-05"), createdGas.getRegistrationData());
-        Assertions.assertEquals("ГИ на ПГ", createdGas.getType());
-        Assertions.assertEquals("ЕМЕРТ", createdGas.getManufacturer());
+        Assertions.assertEquals("asd", createdGas.getType());
+        Assertions.assertEquals("asd", createdGas.getManufacturer());
         Assertions.assertEquals("EFT704L", createdGas.getModel());
         Assertions.assertEquals("2", createdGas.getPressure());
         Assertions.assertEquals("2", createdGas.getPower());
-        Assertions.assertEquals(Long.valueOf("1"), createdGas.getOwnerId());
-
     }
 
     @Test
@@ -146,7 +142,6 @@ public class GasInstallationControllerIT {
                         .setModel("EFT704L")
                         .setPressure("2")
                         .setPower("2")
-                        .setOwnerId(1L)
         );
     }
 
